@@ -1,26 +1,50 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+	--color-brand-espresso: #2a1303;
+	--color-brand-cocoa: #482208;
+	--color-brand-caramel: #733c14;
+	--color-brand-amber: #a86c2c;
+	--color-brand-gold: #deb071;
+	--color-brand-cream: #fbf9f5;
+	--color-brand-cream-dark: #f2e9dc;
+
+	--font-serif: var(--font-playfair), Georgia, serif;
+	--font-sans: var(--font-outfit), sans-serif;
+
+  --animate-pulse-slow: pulse 6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-spin-slow: spin 25s linear infinite;
+  --animate-slide-up-fade: slide-up-fade 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@keyframes slide-up-fade {
+  0% {
+    opacity: 0;
+    transform: translateY(180px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
+@utility bg-radial-gourmet {
+	background: radial-gradient(
+		circle at center,
+		var(--color-brand-gold) 0%,
+		var(--color-brand-amber) 35%,
+		var(--color-brand-caramel) 65%,
+		var(--color-brand-cocoa) 90%,
+		var(--color-brand-espresso) 100%
+	);
+}
+
+:root {
+	--background: #fbf9f5;
+	--foreground: #120701;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+	background-color: var(--background);
+	color: var(--foreground);
 }

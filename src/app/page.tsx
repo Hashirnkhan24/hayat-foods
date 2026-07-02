@@ -1,65 +1,110 @@
-import Image from "next/image";
+"use client";
+
+import { useEffect, useState, useRef } from "react";
+import Navbar from "@/components/Navbar";
+import Hero from "@/components/Hero";
+import Cashews from "@/components/Cashews";
+import Pistachios from "@/components/Pistachios";
+import Honey from "@/components/Honey";
 
 export default function Home() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const isTransitioningRef = useRef(false);
+  const touchStartYRef = useRef(0);
+
+  useEffect(() => {
+    const handleWheel = (e: WheelEvent) => {
+      e.preventDefault(); // prevent default browser scroll
+      if (isTransitioningRef.current) return;
+
+      const threshold = 25; // ignore minor accidental scroll shakes
+      if (Math.abs(e.deltaY) < threshold) return;
+
+      isTransitioningRef.current = true;
+      
+      if (e.deltaY > 0) {
+        // Scroll Down -> Next Section
+        setActiveIndex((prev) => Math.min(prev + 1, 3));
+      } else {
+        // Scroll Up -> Previous Section
+        setActiveIndex((prev) => Math.max(prev - 1, 0));
+      }
+
+      // Throttle inputs for 1.4 seconds to let the transition complete smoothly
+      setTimeout(() => {
+        isTransitioningRef.current = false;
+      }, 1400);
+    };
+
+    const handleTouchStart = (e: TouchEvent) => {
+      touchStartYRef.current = e.touches[0].clientY;
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (isTransitioningRef.current) return;
+
+      const touchEndY = e.touches[0].clientY;
+      const deltaY = touchStartYRef.current - touchEndY;
+      
+      const threshold = 40; // swipe offset threshold
+      if (Math.abs(deltaY) < threshold) return;
+
+      isTransitioningRef.current = true;
+
+      if (deltaY > 0) {
+        // Swipe Up (Scroll Down)
+        setActiveIndex((prev) => Math.min(prev + 1, 3));
+      } else {
+        // Swipe Down (Scroll Up)
+        setActiveIndex((prev) => Math.max(prev - 1, 0));
+      }
+
+      setTimeout(() => {
+        isTransitioningRef.current = false;
+      }, 1400);
+    };
+
+    // Attach event listeners directly to window
+    // passive: false is required to allow preventDefault()
+    window.addEventListener("wheel", handleWheel, { passive: false });
+    window.addEventListener("touchstart", handleTouchStart, { passive: true });
+    window.addEventListener("touchmove", handleTouchMove, { passive: false });
+
+    return () => {
+      window.removeEventListener("wheel", handleWheel);
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchmove", handleTouchMove);
+    };
+  }, []);
+
+  // Map the activeIndex state to component props
+  const heroOpacity = activeIndex === 0 ? 1 : 0;
+  
+  const cashewRadius = activeIndex >= 1 ? 150 : 0;
+  const cashewTextOpacity = activeIndex === 1 ? 1 : 0;
+
+  const pistachioRadius = activeIndex >= 2 ? 150 : 0;
+  const pistachioTextOpacity = activeIndex === 2 ? 1 : 0;
+
+  const honeyRadius = activeIndex >= 3 ? 150 : 0;
+  const honeyTextOpacity = activeIndex === 3 ? 1 : 0;
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+    <>
+      <Navbar />
+      <main className="h-screen w-full overflow-hidden relative bg-brand-espresso select-none">
+        {/* Section 1: Hero */}
+        <Hero opacity={heroOpacity} />
+
+        {/* Section 2: Cashews */}
+        <Cashews radius={cashewRadius} textOpacity={cashewTextOpacity} />
+
+        {/* Section 3: Pistachios */}
+        <Pistachios radius={pistachioRadius} textOpacity={pistachioTextOpacity} />
+
+        {/* Section 4: Honey */}
+        <Honey radius={honeyRadius} textOpacity={honeyTextOpacity} />
       </main>
-    </div>
+    </>
   );
 }
