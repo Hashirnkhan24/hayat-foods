@@ -15,7 +15,7 @@ export default function Honey({ radius, textOpacity }: HoneyProps) {
       className="absolute inset-0 w-full h-full bg-brand-espresso flex items-center justify-center"
       style={{
         clipPath: `circle(${radius}% at 50% 50%)`,
-        zIndex: 30, // Stacked on top of Pistachios (z-20)
+        zIndex: 30,
         opacity: isOpen ? 1 : 0,
         pointerEvents: isOpen ? "auto" : "none",
         transform: isOpen ? "scale(1)" : "scale(0.92)",
@@ -24,13 +24,26 @@ export default function Honey({ radius, textOpacity }: HoneyProps) {
     >
       {/* Background Image */}
       <div className="absolute inset-0 w-full h-full">
-        <Image
-          src="/honey.svg"
-          alt="Premium Organic Honey"
-          fill
-          priority
-          className="object-cover"
-        />
+        {/* Mobile Viewport Image */}
+        <div className="absolute inset-0 w-full h-full md:hidden">
+          <Image
+            src="/honey_mobile.png"
+            alt="Premium Organic Honey Mobile"
+            fill
+            priority
+            className="object-cover"
+          />
+        </div>
+        {/* Desktop Viewport Image */}
+        <div className="absolute inset-0 w-full h-full hidden md:block">
+          <Image
+            src="/honey.svg"
+            alt="Premium Organic Honey"
+            fill
+            priority
+            className="object-cover md:scale-105 transition-transform duration-1000"
+          />
+        </div>
         {/* Subtle Dark Vignette Overlay for readability */}
         <div className="absolute inset-0 bg-gradient-to-t from-brand-espresso/60 via-brand-espresso/15 to-brand-espresso/60 pointer-events-none"></div>
       </div>
@@ -44,7 +57,7 @@ export default function Honey({ radius, textOpacity }: HoneyProps) {
           transition: "opacity 1.2s ease-out, transform 1.2s ease-out",
         }}
       >
-        <h2 className="font-sans text-6xl sm:text-8xl md:text-9xl font-bold tracking-widest text-white drop-shadow-[0_10px_20px_rgba(0,0,0,0.6)] uppercase">
+        <h2 className="font-sans text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-bold tracking-widest text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)] drop-shadow-[0_10px_25px_rgba(0,0,0,0.85)] uppercase">
           Honey
         </h2>
       </div>

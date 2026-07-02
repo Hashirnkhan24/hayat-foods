@@ -122,81 +122,73 @@ export default function Navbar() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden text-brand-cream/80 hover:text-brand-gold transition-colors p-2 rounded-lg"
+            className="md:hidden z-50 relative w-10 h-10 flex flex-col items-center justify-center text-brand-cream/80 hover:text-brand-gold focus:outline-none"
             aria-label="Toggle Menu"
           >
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-            >
-              {isMobileMenuOpen ? (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              ) : (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              )}
-            </svg>
+            {/* Morphing Hamburger Lines */}
+            <div className="w-6 h-4.5 flex flex-col justify-between relative">
+              <span
+                className={`w-full h-0.5 bg-current rounded-full transition-all duration-300 transform origin-left ${
+                  isMobileMenuOpen ? "rotate-[42deg] translate-x-[3px] translate-y-[-1px]" : ""
+                }`}
+              ></span>
+              <span
+                className={`w-full h-0.5 bg-current rounded-full transition-all duration-300 ${
+                  isMobileMenuOpen ? "opacity-0 scale-0" : "opacity-100"
+                }`}
+              ></span>
+              <span
+                className={`w-full h-0.5 bg-current rounded-full transition-all duration-300 transform origin-left ${
+                  isMobileMenuOpen ? "-rotate-[42deg] translate-x-[3px] translate-y-[1px]" : ""
+                }`}
+              ></span>
+            </div>
           </button>
         </div>
       </div>
 
-      {/* Mobile Drawer */}
+      {/* Full-Screen Mobile Menu Overlay */}
       <div
-        className={`md:hidden fixed inset-0 z-40 transition-transform duration-300 ease-in-out ${
-          isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
+        className={`md:hidden fixed inset-0 z-40 bg-brand-espresso/95 backdrop-blur-md flex flex-col justify-center items-center gap-8 transition-all duration-500 ease-in-out ${
+          isMobileMenuOpen
+            ? "opacity-100 translate-y-0 pointer-events-auto"
+            : "opacity-0 -translate-y-4 pointer-events-none"
         }`}
       >
-        {/* Overlay */}
-        <div
-          className="absolute inset-0 bg-brand-espresso/90 backdrop-blur-sm"
-          onClick={() => setIsMobileMenuOpen(false)}
-        ></div>
+        {/* Navigation Links */}
+        <nav className="flex flex-col items-center gap-8">
+          <Link
+            href="#products"
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="text-brand-cream hover:text-brand-gold text-2xl font-serif font-bold tracking-widest transition-colors duration-300"
+          >
+            Our Products
+          </Link>
+          <Link
+            href="#story"
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="text-brand-cream hover:text-brand-gold text-2xl font-serif font-bold tracking-widest transition-colors duration-300"
+          >
+            Our Story
+          </Link>
+          <Link
+            href="#contact"
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="text-brand-cream hover:text-brand-gold text-2xl font-serif font-bold tracking-widest transition-colors duration-300"
+          >
+            Contact
+          </Link>
+        </nav>
 
-        {/* Menu Content */}
-        <div className="absolute right-0 top-0 bottom-0 w-4/5 max-w-sm bg-gradient-to-b from-brand-cocoa to-brand-espresso p-6 border-l border-brand-caramel/20 flex flex-col justify-between">
-          <div className="flex flex-col gap-6 mt-16">
-            <Link
-              href="#products"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="text-brand-cream/80 hover:text-brand-gold text-lg font-medium tracking-wide transition-colors border-b border-brand-caramel/10 pb-2"
-            >
-              Our Products
-            </Link>
-            <Link
-              href="#story"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="text-brand-cream/80 hover:text-brand-gold text-lg font-medium tracking-wide transition-colors border-b border-brand-caramel/10 pb-2"
-            >
-              Our Story
-            </Link>
-            <Link
-              href="#contact"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="text-brand-cream/80 hover:text-brand-gold text-lg font-medium tracking-wide transition-colors border-b border-brand-caramel/10 pb-2"
-            >
-              Contact
-            </Link>
-          </div>
-
-          <div className="flex flex-col gap-4 mt-auto">
-            <Link
-              href="#shop"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="w-full text-center py-3 rounded-full text-sm font-semibold tracking-wider uppercase bg-brand-gold text-brand-espresso hover:bg-brand-amber transition-colors shadow-lg"
-            >
-              Shop Now
-            </Link>
-          </div>
+        {/* Action Button */}
+        <div className="mt-4 flex flex-col items-center gap-6">
+          <Link
+            href="#shop"
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="px-8 py-3 rounded-full text-xs font-semibold tracking-wider uppercase border border-brand-gold text-brand-gold bg-brand-gold/5 hover:bg-brand-gold hover:text-brand-espresso transition-all duration-300 shadow-[0_0_15px_rgba(235,177,91,0.15)]"
+          >
+            Shop Now
+          </Link>
         </div>
       </div>
     </header>

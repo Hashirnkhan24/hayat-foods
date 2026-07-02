@@ -46,9 +46,9 @@ export default function Hero({ opacity }: HeroProps) {
       </div>
 
       {/* Minimalist Bottom Indicator */}
-      <div className="absolute bottom-10 left-0 right-0 z-10 flex flex-col items-center">
+      <div className="absolute bottom-10 left-0 right-0 z-10 flex flex-col items-center px-4 text-center">
         <div className="w-16 h-[1px] bg-brand-gold/40 mb-3"></div>
-        <p className="text-[10px] sm:text-xs font-sans tracking-[0.3em] text-brand-cream/60 uppercase">
+        <p className="text-[9px] sm:text-xs font-sans tracking-[0.15em] sm:tracking-[0.3em] text-brand-cream/60 uppercase leading-relaxed max-w-xs sm:max-w-none">
           Directly Sourced • Gently Roasted • Handpacked
         </p>
       </div>
