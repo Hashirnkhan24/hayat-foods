@@ -33,7 +33,7 @@ export default function Navbar() {
             <div className="relative w-12 h-12 rounded-full overflow-hidden transition-all duration-300 group-hover:scale-105">
               <Image
                 src="/logo.png"
-                alt="Hayat Foods Logo"
+                alt="Hayat Gourmet Bites Logo"
                 fill
                 sizes="48px"
                 className="object-cover rounded-full"

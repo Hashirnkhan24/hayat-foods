@@ -16,7 +16,7 @@ const playfair = Playfair_Display({
 
 export const metadata: Metadata = {
   title: "HAYAT Gourmet Bites | Premium Nuts & Dried Fruits",
-  description: "Experience the ultimate in organic luxury with Hayat Foods. Premium, handpicked gourmet nuts and dried fruits crafted for true connoisseurs.",
+  description: "Experience the ultimate in organic luxury with HAYAT Gourmet Bites. Premium, handpicked gourmet nuts and dried fruits crafted for true connoisseurs.",
 };
 
 export default function RootLayout({

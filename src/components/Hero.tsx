@@ -24,7 +24,7 @@ export default function Hero({ opacity }: HeroProps) {
         <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden border-2 border-brand-gold/35 bg-white p-0.5 shadow-[0_8px_30px_rgb(0,0,0,0.3)] mb-6 transform hover:scale-105 transition-transform duration-300">
           <Image
             src="/logo.png"
-            alt="Hayat Foods Brand Logo"
+            alt="Hayat Gourmet Bites Brand Logo"
             fill
             sizes="(max-width: 640px) 96px, 112px"
             className="object-cover rounded-full"
@@ -33,8 +33,8 @@ export default function Hero({ opacity }: HeroProps) {
         </div>
 
         {/* Main Headline */}
-        <h1 className="font-sans text-6xl sm:text-8xl md:text-9xl font-bold tracking-wide text-white drop-shadow-[0_10px_20px_rgba(0,0,0,0.5)] select-none mb-6">
-          Hayat Foods
+        <h1 className="font-sans text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-bold tracking-wide text-white drop-shadow-[0_10px_20px_rgba(0,0,0,0.5)] select-none mb-6">
+          Hayat Gourmet Bites
         </h1>
 
         {/* Subtle Gold Brand Badge */}
